@@ -3,16 +3,15 @@ package ar.edu.unlam.dominio;
 import java.time.LocalDate;
 import java.util.HashSet;
 
-
 public abstract class Evento {
-	
+
 	private static Integer idIncremento = 0;
 	private Integer id;
 	private String nombre;
 	private LocalDate fecha;
 	private String lugar;
 	private HashSet<Persona> participantes;
-	
+
 	public Evento(String nombre, LocalDate fecha, String lugar) {
 		this.id = ++idIncremento;
 		this.nombre = nombre;
@@ -52,10 +51,24 @@ public abstract class Evento {
 	public void setLugar(String lugar) {
 		this.lugar = lugar;
 	}
-	
+
 	public HashSet<Persona> getParticipantes() {
 		return participantes;
 	}
-	
+
 	public abstract Boolean agregarParticipantes(Persona participante);
+
+	public Boolean eliminarUnParticipantePorSuDni(Persona participante) {
+
+		HashSet<Persona> participantes = getParticipantes();
+
+		for (Persona persona : participantes) {
+			if (persona.getDni().equals(participante.getDni())) {
+				return participantes.remove(persona);
+			}
+		}
+
+		return false;
+
+	}
 }
