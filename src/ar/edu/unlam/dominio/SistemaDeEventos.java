@@ -178,22 +178,34 @@ public class SistemaDeEventos {
 	}
 
 	public Boolean eliminarEventoPorId(Integer id) {
-	    for (Evento evento : eventos) {
-	        if (evento.getId().equals(id)) {
-	            eventos.remove(evento);
-	            return true;
-	        }
-	    }
-	    return false;
+		for (Evento evento : eventos) {
+			if (evento.getId().equals(id)) {
+				eventos.remove(evento);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public Evento buscarEventoPorFecha(LocalDate fecha) {
-        for (Evento existe : eventos) {
-            if(existe.getFecha().equals(fecha)) {
-                return existe; 
-            }
-        }
-        return null;
-    }
+		for (Evento existe : eventos) {
+			if (existe.getFecha().equals(fecha)) {
+				return existe;
+			}
+		}
+		return null;
+	}
 
+	public Integer buscarEventoEntreFecha(LocalDate fechaInicio, LocalDate fechaFinal) {
+		Integer cantidad = 0;
+
+		for (Evento evento : eventos) {
+			LocalDate fecha = evento.getFecha();
+			if ((fecha.isAfter(fechaInicio) || fecha.isEqual(fechaInicio))
+					&& (fecha.isBefore(fechaFinal) || fecha.isBefore(fechaFinal))) {
+				cantidad++;
+			}
+		}
+		return cantidad;
+	}
 }
