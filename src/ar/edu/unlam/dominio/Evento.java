@@ -57,6 +57,8 @@ public abstract class Evento {
 	}
 
 	public abstract Boolean agregarParticipantes(Persona participante);
+	
+	public abstract Double calcularPrecioFinal();
 
 	public Boolean eliminarUnParticipantePorSuDni(Persona participante) {
 

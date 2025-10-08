@@ -45,6 +45,12 @@ public class Conferencia extends Evento{
 		
 		return false;
 	}
+
+	@Override
+	public Double calcularPrecioFinal() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 

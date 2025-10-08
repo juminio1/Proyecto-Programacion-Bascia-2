@@ -20,8 +20,7 @@ public class Test_Eventos {
 		LocalDate fecha = LocalDate.of(2025, 10, 6);
 		String lugar = "Movistar Arena";
 
-		// Evento evento = new Evento(nombre, fecha, lugar);
-		Recital recitalNuevo = new Recital(nombre, fecha, lugar, false, 0); // cambio agregue 2 atributos
+		Recital recitalNuevo = new Recital(nombre, fecha, lugar, false, 0);
 
 		Boolean seAgrego = sistema.agregarEvento(recitalNuevo);
 
@@ -124,7 +123,7 @@ public class Test_Eventos {
 
 		Persona persona1 = new Persona(912, "Jose", 20);
 		Persona persona2 = new Persona(5, "Julieta", 74);
-		
+
 		Boolean seAgregoParticipante = sistema.agregarParticipante(idInventado, persona1);
 		Boolean seAgregoParticipante2 = sistema.agregarParticipante(idInventado, persona2);
 
@@ -370,53 +369,110 @@ public class Test_Eventos {
 		assertTrue(participanteEliminado);
 
 	}
-	
+
 	@Test
 	public void dadoQueExisteUnEventoConSuIdEsPosibleEliminarloExitosamente() {
 		SistemaDeEventos sistema = new SistemaDeEventos();
 		String nombre = "Lol";
 		LocalDate fecha = LocalDate.of(2025, 10, 6);
 		String lugar = "Movistar Arena";
-		
+
 		Casamiento casamientoNueva = new Casamiento(nombre, fecha, lugar, false);
 		Boolean seAgrego = sistema.agregarEvento(casamientoNueva);
 		assertTrue(seAgrego);
-		
+
 		Integer eventoId = casamientoNueva.getId();
 		Boolean eliminado = sistema.eliminarEventoPorId(eventoId);
-		
+
 		assertTrue(eliminado);
 	}
 
 	@Test
-    public void dadoQueExisteUnEventoDevolverUnaListaConCantidadDeParticipantes() {
-        SistemaDeEventos sistema = new SistemaDeEventos();
+	public void dadoQueExisteUnEventoDevolverUnaListaConCantidadDeParticipantes() {
+		SistemaDeEventos sistema = new SistemaDeEventos();
 
-        String nombre = "Lol";
-        LocalDate fecha = LocalDate.of(2025, 10, 6);
-        String lugar = "Movistar Arena";
+		String nombre = "Lol";
+		LocalDate fecha = LocalDate.of(2025, 10, 6);
+		String lugar = "Movistar Arena";
 
-        Casamiento casamientoNueva = new Casamiento(nombre, fecha, lugar, false);
-        Boolean seAgrego = sistema.agregarEvento(casamientoNueva);
-        Integer casamientoId = casamientoNueva.getId();
-        assertTrue(seAgrego);
-        Persona persona1 = new Persona(912, "Jose", 20);
-        Persona persona2 = new Persona(1, "Julieta", 74); // False porque el limite de CANTIDAD_PARTICIPANTES es 1
-        Persona persona3 = new Persona(188, "Salva", 20); // False porque el limite de CANTIDAD_PARTICIPANTES es 1
+		Casamiento casamientoNueva = new Casamiento(nombre, fecha, lugar, false);
+		Boolean seAgrego = sistema.agregarEvento(casamientoNueva);
+		Integer casamientoId = casamientoNueva.getId();
+		assertTrue(seAgrego);
+		Persona persona1 = new Persona(912, "Jose", 20);
+		Persona persona2 = new Persona(1, "Julieta", 74); // False porque el limite de CANTIDAD_PARTICIPANTES es 1
+		Persona persona3 = new Persona(188, "Salva", 20); // False porque el limite de CANTIDAD_PARTICIPANTES es 1
 
-        Boolean seAgregoParticipante = sistema.agregarParticipante(casamientoId, persona1);
-        Boolean seAgregoParticipante2 = sistema.agregarParticipante(casamientoId, persona2);
-        Boolean seAgregoParticipante3 = sistema.agregarParticipante(casamientoId, persona3);
+		Boolean seAgregoParticipante = sistema.agregarParticipante(casamientoId, persona1);
+		Boolean seAgregoParticipante2 = sistema.agregarParticipante(casamientoId, persona2);
+		Boolean seAgregoParticipante3 = sistema.agregarParticipante(casamientoId, persona3);
 
-        assertTrue(seAgregoParticipante);
-        assertFalse(seAgregoParticipante2);
-        assertFalse(seAgregoParticipante3);
+		assertTrue(seAgregoParticipante);
+		assertFalse(seAgregoParticipante2);
+		assertFalse(seAgregoParticipante3);
 
-        Integer valorEsperado= 1;
-        Integer valorObtenido= casamientoNueva.getParticipantes().size();
+		Integer valorEsperado = 1;
+		Integer valorObtenido = casamientoNueva.getParticipantes().size();
 
-        assertEquals(valorEsperado, valorObtenido);
+		assertEquals(valorEsperado, valorObtenido);
 
-    }
-	
+	}
+
+	@Test
+	public void dadoQueTengoUnCasamientoCalculoElCostoFinalCorrecto() {
+		SistemaDeEventos sistema = new SistemaDeEventos();
+
+		String nombre = "Lol";
+		LocalDate fecha = LocalDate.of(2025, 10, 6);
+		String lugar = "Movistar Arena";
+
+		Casamiento casamientoSinCatering = new Casamiento(nombre, fecha, lugar, false);
+		sistema.agregarEvento(casamientoSinCatering);
+		Persona persona1 = new Persona(912, "Jose", 20);
+		sistema.agregarParticipante(casamientoSinCatering.getId(), persona1);
+		Double precioSinCatering = casamientoSinCatering.calcularPrecioFinal();
+		Double precioEsperado = 500.0;
+		assertEquals(precioEsperado, precioSinCatering); // costo sin catering
+
+		String nombre2 = "Lolamento";
+		LocalDate fecha2 = LocalDate.of(2025, 8, 6);
+		String lugar2 = "Tandil";
+
+		Casamiento casamientoConCatering = new Casamiento(nombre2, fecha2, lugar2, true);
+		sistema.agregarEvento(casamientoConCatering);
+		Persona persona2 = new Persona(876, "Maria", 22);
+		sistema.agregarParticipante(casamientoConCatering.getId(), persona2);
+		Double precioConCatering = casamientoConCatering.calcularPrecioFinal();
+		Double precioEsperado2 = 550.0;
+		assertEquals(precioEsperado2, precioConCatering);
+
+	}
+
+	@Test
+	public void dadoQueTengoUnRecitalVerificoNoAgregarAUnMenorYCalculoElCosto() {
+		SistemaDeEventos sistema = new SistemaDeEventos();
+		String nombre = "Nirvana";
+		LocalDate fecha2 = LocalDate.of(2025, 8, 6);
+		String lugar = "Movistar Arena";
+
+		Recital recital = new Recital(nombre, fecha2, lugar, true, 2);
+		sistema.agregarEvento(recital);
+
+		Persona persona1 = new Persona(876, "Maria", 22);
+		Persona persona2 = new Persona(855, "jose", 24);
+		Persona persona3 = new Persona(890, "ofelia", 15);
+
+		Boolean seAgrego = sistema.agregarParticipante(recital.getId(), persona1);
+		Boolean seAgrego2 = sistema.agregarParticipante(recital.getId(), persona2);
+		Boolean seAgrego3 = sistema.agregarParticipante(recital.getId(), persona3);
+		assertTrue(seAgrego);
+		assertTrue(seAgrego2);
+		assertFalse(seAgrego3);
+
+		Double precioFinal = recital.calcularPrecioFinal();
+		Double precioEsperado = 27200.0;
+
+		assertEquals(precioEsperado, precioFinal);
+	}
+
 }
