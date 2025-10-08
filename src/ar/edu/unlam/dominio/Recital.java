@@ -15,7 +15,6 @@ public class Recital extends Evento{
 		this.esAlAireLibre = esAlAireLibre;
 		this.bandasInvitadas = bandasInvitadas;
 	}
-
 	public Boolean getEsAlAireLibre() {
 		return esAlAireLibre;
 	}

@@ -10,6 +10,7 @@ public class Conferencia extends Evento{
 	private static final Integer CANTIDAD_PARTICIPANTES = 500;
 	private static final Integer EDAD_PERMITIDA = 13;
 
+	
 	public Conferencia(String nombre, LocalDate fecha, String lugar, Boolean tienePatrocinio, Boolean conTraduccionSimultanea) {
 		super(nombre, fecha, lugar);
 		this.tienePatrocinio = tienePatrocinio;

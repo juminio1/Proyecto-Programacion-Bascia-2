@@ -1,6 +1,7 @@
 package ar.edu.unlam.dominio;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 
 public class SistemaDeEventos {
@@ -54,7 +55,88 @@ public class SistemaDeEventos {
 		return false;
 	}
 
+
+
+	public Integer getCantCasamientos() {
+		
+		Integer cantidadDeCasamientos = 0;
+		
+		for (Evento evento : eventos) {
+			if(evento instanceof Casamiento) {
+				cantidadDeCasamientos++;
+			}
+		}
+		
+		return cantidadDeCasamientos;
+	}
+	 
+	public Integer getCantConferencias() {
+		
+		Integer cantidadDeConferencias = 0;
+		
+		for (Evento evento : eventos) {
+			if(evento instanceof Conferencia) {
+				cantidadDeConferencias++;
+			}
+		}
+		
+		return cantidadDeConferencias;
+	}
+	
+	public Integer getCantRecital() {
+		
+		Integer cantidadDeRecital = 0;
+		
+		for (Evento evento : eventos) {
+			if(evento instanceof Recital) {
+				cantidadDeRecital++;
+			}
+		}
+		
+		return cantidadDeRecital;
+	}
+	
+	public Double obtenerPromedioDeEdadDeEvento(Integer id) {
+
+		Double edad = 0.0;
+
+		for (Evento evento : eventos) {
+			if (evento.getId().equals(id)) {
+				HashSet<Persona> participantes = evento.getParticipantes();
+				
+				if (!participantes.isEmpty()) {
+					for (Persona p : participantes) {
+						edad += p.getEdad();
+					}
+
+					edad = edad / participantes.size();
+				}
+
+			}
+		}
+
+		return edad;
+	}
 	
 	
+	public Evento obtenerElEventoConMayorPromedioDeEdad() {
+
+		Evento eventoConMayorPromedio = null;
+		Double promedio = 0.0;
+		Double promedioProgresivo = 0.0;
+
+		for (Evento evento : eventos) {
+				promedio = obtenerPromedioDeEdadDeEvento(evento.getId());
+				
+				if(promedio > promedioProgresivo) {
+					promedioProgresivo = promedio;
+					eventoConMayorPromedio = evento;
+				
+			}
+		}
+
+		return eventoConMayorPromedio;
+
+	}
 
 }

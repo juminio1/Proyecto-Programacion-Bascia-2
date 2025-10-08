@@ -1,11 +1,15 @@
 package ar.edu.unlam.dominio;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import org.junit.Test;
+
+
 
 public class Test_Eventos {
 	
@@ -132,5 +136,148 @@ public class Test_Eventos {
 		assertFalse(seAgregoParticipante);
 		assertFalse(seAgregoParticipante2);
 	}
+	
+	@Test
+	public void dadoQueExisteUnSistemaDeEventosNoPuedoAgregarDosEventosConLaMismaFecha() {
+		
+		SistemaDeEventos sistema = new SistemaDeEventos();
+		
+		String nombre = "Lollapalooza";
+		LocalDate fecha = LocalDate.of(2025, 10, 6);
+		String lugar = "Hipodromo";
+		Boolean esAlAireLibre = false;
+		Integer bandaInvitadas = 1;
+		
+		
+		Recital recital = new Recital(nombre, fecha, lugar, esAlAireLibre, bandaInvitadas);
+		
+		String nombre2 = "Conferencia";
+		String lugar2 = "Auditorio";
+		Boolean tienePatrocinio = false;
+		Boolean conTraduccionSimultanea = false;
+
+		Conferencia conferencia = new Conferencia(nombre2, fecha, lugar2, tienePatrocinio, conTraduccionSimultanea);
+		
+		Boolean seAgregoRecital = sistema.agregarEvento(recital);
+		Boolean seAgregoConferencia = sistema.agregarEvento(conferencia);
+
+		assertTrue(seAgregoRecital);
+		assertFalse(seAgregoConferencia);
+		
+	}
+	
+	@Test
+	public void dadoQueExisteUnSistemaDeEventosQuieroSaberCuantosEventosEstanRegistradosDeCadaTipo() {
+		
+		SistemaDeEventos sistema = new SistemaDeEventos();
+		
+		String nombre = "Lollapalooza";
+		LocalDate fecha = LocalDate.of(2025, 10, 6);
+		String lugar = "Hipodromo";
+		Boolean esAlAireLibre = false;
+		Integer bandaInvitadas = 1;
+		
+		Recital recital = new Recital(nombre, fecha, lugar, esAlAireLibre, bandaInvitadas);
+		
+		String nombre2 = "Conferencia";
+		LocalDate fecha2 = LocalDate.of(2025, 10, 7);
+		String lugar2 = "Auditorio";
+		Boolean tienePatrocinio = false;
+		Boolean conTraduccionSimultanea = false;
+		
+		Conferencia conferencia = new Conferencia(nombre2, fecha2, lugar2, tienePatrocinio, conTraduccionSimultanea);
+		
+		String nombre3 = "Casamiento";
+		LocalDate fecha3 = LocalDate.of(2025, 10, 8);
+		String lugar3 = "Salon";
+		
+		Casamiento casamiento = new Casamiento(nombre3, fecha3, lugar3, true);
+		
+		sistema.agregarEvento(recital);
+		sistema.agregarEvento(conferencia);
+		sistema.agregarEvento(casamiento);
+
+		Integer cantCasamientos = sistema.getCantCasamientos();
+		Integer cantRecital = sistema.getCantRecital();
+		Integer cantConferencia = sistema.getCantConferencias();
+		
+		Integer cantEsperada = 1;
+		
+		assertEquals(cantEsperada, cantCasamientos);
+		assertEquals(cantEsperada, cantRecital);
+		assertEquals(cantEsperada, cantConferencia);
+
+	}
+	
+	
+	@Test
+	public void dadoQueExisteUnSistemaDeEventosQuieroSaberCuantosEventosEstanRegistrados() {
+		
+		SistemaDeEventos sistema = new SistemaDeEventos();
+		
+		String nombre = "Lollapalooza";
+		LocalDate fecha = LocalDate.of(2025, 10, 6);
+		String lugar = "Hipodromo";
+		Boolean esAlAireLibre = false;
+		Integer bandaInvitadas = 1;
+		
+		Recital recital = new Recital(nombre, fecha, lugar, esAlAireLibre, bandaInvitadas);
+		
+		String nombre2 = "Conferencia";
+		LocalDate fecha2 = LocalDate.of(2025, 10, 7);
+		String lugar2 = "Auditorio";
+		Boolean tienePatrocinio = false;
+		Boolean conTraduccionSimultanea = false;
+		
+		Conferencia conferencia = new Conferencia(nombre2, fecha2, lugar2, tienePatrocinio, conTraduccionSimultanea);
+		
+		String nombre3 = "Casamiento";
+		LocalDate fecha3 = LocalDate.of(2025, 10, 8);
+		String lugar3 = "Salon";
+		
+		Casamiento casamiento = new Casamiento(nombre3, fecha3, lugar3, true);
+		
+		sistema.agregarEvento(recital);
+		sistema.agregarEvento(conferencia);
+		sistema.agregarEvento(casamiento);
+
+		ArrayList<Evento> eventos = sistema.getEventos();
+		Integer cantEventos = eventos.size();
+		Integer cantEsperada = 3;
+		assertEquals(cantEsperada, cantEventos);
+
+	}
+	
+	@Test
+	public void dadoQueExisteUnSistemaDeEventosQuieroSaberElPromedioDeEdadDeUnEvento() {
+		
+		SistemaDeEventos sistema = new SistemaDeEventos();
+		
+		String nombre = "Lollapalooza";
+		LocalDate fecha = LocalDate.of(2025, 10, 6);
+		String lugar = "Hipodromo";
+		Boolean esAlAireLibre = false;
+		Integer bandaInvitadas = 1;
+		
+		Recital recital = new Recital(nombre, fecha, lugar, esAlAireLibre, bandaInvitadas);
+		Integer idR = recital.getId();
+	
+		sistema.agregarEvento(recital);
+		
+		Persona persona1 = new Persona(912, "Adrian", 20); 
+		Persona persona2 = new Persona(31, "Emilia", 30);
+		
+		sistema.agregarParticipante(idR, persona1);
+		sistema.agregarParticipante(idR, persona2);
+
+		double promedioEdad = sistema.obtenerPromedioDeEdadDeEvento(idR);
+		double esperado = 25.0;
+		
+		assertEquals((int)esperado, (int)promedioEdad);
+		
+	}
+	
+
+	
 	
 }
