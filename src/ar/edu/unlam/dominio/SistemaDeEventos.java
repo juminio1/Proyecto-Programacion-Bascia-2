@@ -1,5 +1,6 @@
 package ar.edu.unlam.dominio;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -185,5 +186,14 @@ public class SistemaDeEventos {
 	    }
 	    return false;
 	}
+
+	public Evento buscarEventoPorFecha(LocalDate fecha) {
+        for (Evento existe : eventos) {
+            if(existe.getFecha().equals(fecha)) {
+                return existe; 
+            }
+        }
+        return null;
+    }
 
 }

@@ -9,6 +9,9 @@ public class Conferencia extends Evento{
 	private Boolean conTraduccionSimultanea;
 	private static final Integer CANTIDAD_PARTICIPANTES = 500;
 	private static final Integer EDAD_PERMITIDA = 13;
+	private static final Double PRECIO_POR_PARTICIPANTE = 1000.0;
+    private static final Double PATROCINIO = 0.1; // 10% DESCUENTO // BONIFICACION
+    private static final Double TRADUCCION_SIMULTANEA = 0.15; // 15% MAS
 
 	
 	public Conferencia(String nombre, LocalDate fecha, String lugar, Boolean tienePatrocinio, Boolean conTraduccionSimultanea) {
@@ -47,10 +50,23 @@ public class Conferencia extends Evento{
 	}
 
 	@Override
-	public Double calcularPrecioFinal() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public Double calcularPrecioFinal() {
+        HashSet<Persona> personas = getParticipantes();
+
+        Integer cantidadPersonas = personas.size();
+
+        Double precioFinal = cantidadPersonas * Conferencia.PRECIO_POR_PARTICIPANTE;
+
+        if(conTraduccionSimultanea) {
+            precioFinal += precioFinal * TRADUCCION_SIMULTANEA;
+        }
+
+        if(tienePatrocinio) {
+            precioFinal -= precioFinal * PATROCINIO;
+        }
+
+        return precioFinal;
+    }
 	
 	
 

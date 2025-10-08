@@ -2,19 +2,26 @@ package ar.edu.unlam.dominio;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class Test_Eventos {
 
+	private SistemaDeEventos sistema;
+
+	@Before
+	public void sistemaDeEventos() {
+		sistema = new SistemaDeEventos();
+	}
+
 	@Test
 	public void dadoQueExisteUnSistemaDeEventosQuieroCrearUnRecitalExitosamente() {
-
-		SistemaDeEventos sistema = new SistemaDeEventos();
 
 		String nombre = "Lol";
 		LocalDate fecha = LocalDate.of(2025, 10, 6);
@@ -29,7 +36,6 @@ public class Test_Eventos {
 
 	@Test
 	public void dadoQueExisteUnSistemaDeEventosQuieroCrearUnaConferenciaExitosamente() {
-		SistemaDeEventos sistema = new SistemaDeEventos();
 
 		String nombre = "Lol";
 		LocalDate fecha = LocalDate.of(2025, 10, 6);
@@ -44,7 +50,6 @@ public class Test_Eventos {
 
 	@Test
 	public void dadoQueExisteUnSistemaDeEventosQuieroCrearUnCasamientoExitosamente() {
-		SistemaDeEventos sistema = new SistemaDeEventos();
 
 		String nombre = "Lol";
 		LocalDate fecha = LocalDate.of(2025, 10, 6);
@@ -58,8 +63,6 @@ public class Test_Eventos {
 
 	@Test
 	public void dadoQueExisteUnSistemaDeEventosQuieroCrearUnCasamientoQueSupereLaCantidadDeParticipantesProvistas() {
-
-		SistemaDeEventos sistema = new SistemaDeEventos();
 
 		String nombre = "Lol";
 		LocalDate fecha = LocalDate.of(2025, 10, 6);
@@ -85,8 +88,6 @@ public class Test_Eventos {
 	@Test
 	public void dadoQueExisteUnSistemaDeEventosQuieroAgregarDosPersonasAlEventoConElMismoDNIyObtenerError() {
 
-		SistemaDeEventos sistema = new SistemaDeEventos();
-
 		String nombre = "Lol";
 		LocalDate fecha = LocalDate.of(2025, 10, 6);
 		String lugar = "Movistar Arena";
@@ -110,8 +111,6 @@ public class Test_Eventos {
 	@Test
 	public void dadoQueExisteUnSistemaDeEventosQuieroAgregarParticipantesEnUnEventoConIdInventado() {
 
-		SistemaDeEventos sistema = new SistemaDeEventos();
-
 		String nombre = "Lol";
 		LocalDate fecha = LocalDate.of(2025, 10, 6);
 		String lugar = "Movistar Arena";
@@ -134,8 +133,6 @@ public class Test_Eventos {
 
 	@Test
 	public void dadoQueExisteUnSistemaDeEventosNoPuedoAgregarDosEventosConLaMismaFecha() {
-
-		SistemaDeEventos sistema = new SistemaDeEventos();
 
 		String nombre = "Lollapalooza";
 		LocalDate fecha = LocalDate.of(2025, 10, 6);
@@ -162,8 +159,6 @@ public class Test_Eventos {
 
 	@Test
 	public void dadoQueExisteUnSistemaDeEventosQuieroSaberCuantosEventosEstanRegistradosDeCadaTipo() {
-
-		SistemaDeEventos sistema = new SistemaDeEventos();
 
 		String nombre = "Lollapalooza";
 		LocalDate fecha = LocalDate.of(2025, 10, 6);
@@ -206,8 +201,6 @@ public class Test_Eventos {
 	@Test
 	public void dadoQueExisteUnSistemaDeEventosQuieroSaberCuantosEventosEstanRegistrados() {
 
-		SistemaDeEventos sistema = new SistemaDeEventos();
-
 		String nombre = "Lollapalooza";
 		LocalDate fecha = LocalDate.of(2025, 10, 6);
 		String lugar = "Hipodromo";
@@ -244,8 +237,6 @@ public class Test_Eventos {
 	@Test
 	public void dadoQueExisteUnSistemaDeEventosQuieroSaberElPromedioDeEdadDeUnEvento() {
 
-		SistemaDeEventos sistema = new SistemaDeEventos();
-
 		String nombre = "Lollapalooza";
 		LocalDate fecha = LocalDate.of(2025, 10, 6);
 		String lugar = "Hipodromo";
@@ -272,7 +263,6 @@ public class Test_Eventos {
 
 	@Test
 	public void dadoQueExisteUnaGestionDeEventosMuestraElEventoConMayorCantidadDeParticipantes() {
-		SistemaDeEventos sistema = new SistemaDeEventos();
 
 		String nombre = "Viva la vida";
 		LocalDate fecha = LocalDate.of(2025, 10, 7);
@@ -324,8 +314,6 @@ public class Test_Eventos {
 	@Test
 	public void dadoQueExisteUnSistemaDeEventosQuieroBuscarUnParticipanteDeUnEventoPorSuDNI() {
 
-		SistemaDeEventos sistema = new SistemaDeEventos();
-
 		String nombre2 = "Fernet y coca";
 		LocalDate fecha2 = LocalDate.of(2025, 10, 8);
 		String lugar2 = "River Plate";
@@ -347,8 +335,6 @@ public class Test_Eventos {
 
 	@Test
 	public void dadoQueExisteUnSistemaDeEventosQuieroEliminarUnParticipanteDeUnEventoPorSuDNI() {
-
-		SistemaDeEventos sistema = new SistemaDeEventos();
 
 		String nombre2 = "Fernet y coca";
 		LocalDate fecha2 = LocalDate.of(2025, 10, 8);
@@ -372,7 +358,6 @@ public class Test_Eventos {
 
 	@Test
 	public void dadoQueExisteUnEventoConSuIdEsPosibleEliminarloExitosamente() {
-		SistemaDeEventos sistema = new SistemaDeEventos();
 		String nombre = "Lol";
 		LocalDate fecha = LocalDate.of(2025, 10, 6);
 		String lugar = "Movistar Arena";
@@ -389,7 +374,6 @@ public class Test_Eventos {
 
 	@Test
 	public void dadoQueExisteUnEventoDevolverUnaListaConCantidadDeParticipantes() {
-		SistemaDeEventos sistema = new SistemaDeEventos();
 
 		String nombre = "Lol";
 		LocalDate fecha = LocalDate.of(2025, 10, 6);
@@ -420,7 +404,6 @@ public class Test_Eventos {
 
 	@Test
 	public void dadoQueTengoUnCasamientoCalculoElCostoFinalCorrecto() {
-		SistemaDeEventos sistema = new SistemaDeEventos();
 
 		String nombre = "Lol";
 		LocalDate fecha = LocalDate.of(2025, 10, 6);
@@ -450,7 +433,6 @@ public class Test_Eventos {
 
 	@Test
 	public void dadoQueTengoUnRecitalVerificoNoAgregarAUnMenorYCalculoElCosto() {
-		SistemaDeEventos sistema = new SistemaDeEventos();
 		String nombre = "Nirvana";
 		LocalDate fecha2 = LocalDate.of(2025, 8, 6);
 		String lugar = "Movistar Arena";
@@ -475,4 +457,63 @@ public class Test_Eventos {
 		assertEquals(precioEsperado, precioFinal);
 	}
 
+	@Test
+	public void dadoQueTengoUnaConferenciaVerificoNoAgregarAUnMenorYCalculoElCosto() {
+
+		String nombre = "Jim Morrison";
+		LocalDate fecha2 = LocalDate.of(2025, 8, 6);
+		String lugar = "Movistar Arena";
+		Conferencia conferencia = new Conferencia(nombre, fecha2, lugar, true, false);
+
+		sistema.agregarEvento(conferencia);
+
+		Persona persona1 = new Persona(876, "Maria", 22);
+		Persona persona2 = new Persona(855, "jose", 12);
+
+		Boolean seAgrego = sistema.agregarParticipante(conferencia.getId(), persona1);
+		Boolean seAgrego2 = sistema.agregarParticipante(conferencia.getId(), persona2);
+
+		assertTrue(seAgrego);
+		assertFalse(seAgrego2); // no agrega por ser menor de 13
+
+		Double costoFinal = conferencia.calcularPrecioFinal();
+		Double costoEsperado = 900.0;
+
+		assertEquals(costoEsperado, costoFinal);
+	}
+
+	@Test
+	public void dadoQueTengoEventosRegistradosBuscoUnEventoPorFecha() {
+		String nombre = "Jim Morrison";
+		LocalDate fecha1 = LocalDate.of(2025, 8, 6);
+		String lugar = "Movistar Arena";
+
+		Evento conferencia = new Conferencia(nombre, fecha1, lugar, true, false);
+
+		String nombre2 = "Nirvana";
+		LocalDate fecha2 = LocalDate.of(2025, 8, 6);
+		String lugar2 = "Movistar Arena";
+
+		Evento recital = new Recital(nombre2, fecha2, lugar2, true, 2);
+
+		String nombre3 = "Lol";
+		LocalDate fecha3 = LocalDate.of(2025, 10, 6);
+		String lugar3 = "Movistar Arena";
+
+		Evento casamientoNueva = new Casamiento(nombre3, fecha3, lugar3, false);
+
+		Boolean seAgrego = sistema.agregarEvento(casamientoNueva);
+		Boolean seAgrego2 = sistema.agregarEvento(recital);
+		Boolean seAgrego3 = sistema.agregarEvento(conferencia);
+
+		Evento encontrado = sistema.buscarEventoPorFecha(LocalDate.of(2025, 10, 6));
+
+		assertTrue(seAgrego);
+		assertTrue(seAgrego2);
+		assertFalse(seAgrego3); // no se agrega porque recital agregado antes tiene la misma fecha
+
+		assertNotNull(encontrado);
+		assertEquals(nombre3, encontrado.getNombre());
+		assertTrue(encontrado instanceof Casamiento);
+	}
 }
